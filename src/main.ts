@@ -49,6 +49,11 @@ app.delete("/products/:id", (req, res) => {
     });
 });
 
+app.use((req, res, next) => {
+    const result = handler.notFound();
+    res.status(result.status).send(result.body);
+});
+
 const server = app.listen(port, () => {
     console.log(`API running on port ${port}.`);
 });

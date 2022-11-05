@@ -22,10 +22,10 @@ export default class Database {
         this.open = true;
     }
 
-    public async query(query : string) : Promise<Object[]> {
+    public async query(query : string, values : any[]) : Promise<any> {
         try {
-            let [rows] = await this.pool.query(query);
-            return rows as Object[];
+            let [rows] = await this.pool.execute(query, values);
+            return rows;
         } catch (err) {
             return Promise.reject(err);
         }
