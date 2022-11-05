@@ -1,4 +1,4 @@
-# Simple Typescript/Express.js/MariaDB API Excercise
+# Simple Typescript/Express.js/MariaDB API Exercise
 ## Setup
 1. Clone this repository
 ```
