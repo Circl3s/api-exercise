@@ -17,6 +17,8 @@ const db = new Database(
 );
 const handler = new Handler(db);
 
+app.use(express.json());
+
 app.get("/list", (req, res) => {
     handler.list().then((result) => {
         res.status(result.status).send(result.body);
@@ -25,6 +27,12 @@ app.get("/list", (req, res) => {
 
 app.get("/details", (req, res) => {
     handler.details(req.query["id"] as string).then((result) => {
+        res.status(result.status).send(result.body);
+    });
+});
+
+app.put("/update", (req, res) => {
+    handler.update(req.body["id"], req.body["name"], req.body["price"]).then((result) => {
         res.status(result.status).send(result.body);
     });
 });

@@ -20,7 +20,7 @@ export default class Handler {
                 body: {
                     success: true,
                     error: ``,
-                    data: rows
+                    data: {rows}
                 }
             };
         } catch (err) {
@@ -29,7 +29,7 @@ export default class Handler {
                 body: {
                     success: false,
                     error: err.message,
-                    data: <string[]>[]
+                    data: {}
                 }
             };
         }
@@ -44,17 +44,19 @@ export default class Handler {
                     body: {
                         success: false,
                         error: `ID must be a number. (Provided: ${id})`,
-                        data: <string[]>[]
+                        data: {}
                     }
                 };
             }
+
             const rows = await this.db.query(`SELECT * FROM products WHERE Id = ${numId};`);
+
             return {
                 status: 200,
                 body: {
                     success: true,
                     error: ``,
-                    data: rows
+                    data: rows[0]
                 }
             };
         } catch (err) {
@@ -63,7 +65,64 @@ export default class Handler {
                 body: {
                     success: false,
                     error: err.message,
-                    data: <string[]>[]
+                    data: {}
+                }
+            };
+        }
+    }
+
+    public async update(id : string, name : string, price : string) : Promise<Result> {
+        try {
+            const numId = parseInt(id);
+            const numPrice = parseFloat(price);
+            if (numId !== numId) { // NaN check
+                return {
+                    status: 400,
+                    body: {
+                        success: false,
+                        error: `ID must be a number. (Provided: ${id})`,
+                        data: {}
+                    }
+                };
+            }
+            if (name.length > 100) {
+                return {
+                    status: 400,
+                    body: {
+                        success: false,
+                        error: `Name must be shorter than 100 characters. (Provided: ${name.length})`,
+                        data: {}
+                    }
+                };
+            }
+            if (numPrice !== numPrice) { // NaN check
+                return {
+                    status: 400,
+                    body: {
+                        success: false,
+                        error: `Price must be a number. (Provided: ${price})`,
+                        data: {}
+                    }
+                };
+            }
+
+            const data = await this.db.query(`UPDATE products SET Name = '${name}', Price = ${numPrice}, UpdateDate = CURRENT_TIMESTAMP() WHERE Id = ${numId};`);
+
+            return {
+                status: 200,
+                body: {
+                    success: true,
+                    error: ``,
+                    data: data
+                }
+            };
+        } catch (err) {
+            return {
+                status: 500,
+                body: {
+                    success: false,
+                    error: err.message,
+                    data: {}
                 }
             };
         }
