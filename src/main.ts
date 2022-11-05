@@ -20,7 +20,13 @@ const handler = new Handler(db);
 app.get("/list", (req, res) => {
     handler.list().then((result) => {
         res.status(result.status).send(result.body);
-    })
+    });
+});
+
+app.get("/details", (req, res) => {
+    handler.details(req.query["id"] as string).then((result) => {
+        res.status(result.status).send(result.body);
+    });
 });
 
 const server = app.listen(port, () => {

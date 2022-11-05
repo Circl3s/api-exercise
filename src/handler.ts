@@ -14,7 +14,7 @@ export default class Handler {
 
     public async list() : Promise<Result> {
         try {
-            const rows = await this.db.query("SELECT * FROM products");
+            const rows = await this.db.query("SELECT * FROM products;");
             return {
                 status: 200,
                 body: {
@@ -28,7 +28,41 @@ export default class Handler {
                 status: 500,
                 body: {
                     success: false,
-                    error: err,
+                    error: err.message,
+                    data: <string[]>[]
+                }
+            };
+        }
+    }
+
+    public async details(id : string) : Promise<Result> {
+        try {
+            const numId = parseInt(id);
+            if (numId !== numId) { // NaN check
+                return {
+                    status: 400,
+                    body: {
+                        success: false,
+                        error: `ID must be a number. (Provided: ${id})`,
+                        data: <string[]>[]
+                    }
+                };
+            }
+            const rows = await this.db.query(`SELECT * FROM products WHERE Id = ${numId};`);
+            return {
+                status: 200,
+                body: {
+                    success: true,
+                    error: ``,
+                    data: rows
+                }
+            };
+        } catch (err) {
+            return {
+                status: 500,
+                body: {
+                    success: false,
+                    error: err.message,
                     data: <string[]>[]
                 }
             };
