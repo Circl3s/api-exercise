@@ -40,7 +40,7 @@ export default class Handler {
     public async list() : Promise<Result> {
         try {
             const rows = await this.db.query("SELECT * FROM products;", []);
-            return Result.ok({rows});
+            return Result.ok(rows);
         } catch (err) {
             return Result.error(err.message);
         }
@@ -54,6 +54,10 @@ export default class Handler {
             }
 
             const rows = await this.db.query(`SELECT * FROM products WHERE Id = ?;`, [numId]);
+
+            if (rows.length == 0) {
+                return this.notFound();
+            }
 
             return Result.ok(rows);
         } catch (err) {
