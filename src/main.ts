@@ -19,26 +19,32 @@ const handler = new Handler(db);
 
 app.use(express.json());
 
-app.get("/list", (req, res) => {
+app.get("/products", (req, res) => {
     handler.list().then((result) => {
         res.status(result.status).send(result.body);
     });
 });
 
-app.get("/details", (req, res) => {
-    handler.details(req.query["id"] as string).then((result) => {
+app.get("/products/:id", (req, res) => {
+    handler.details(req.params["id"]).then((result) => {
         res.status(result.status).send(result.body);
     });
 });
 
-app.put("/update", (req, res) => {
-    handler.update(req.body["id"], req.body["name"], req.body["price"]).then((result) => {
+app.put("/products/:id", (req, res) => {
+    handler.update(req.params["id"], req.body["name"], req.body["price"]).then((result) => {
         res.status(result.status).send(result.body);
     });
 });
 
-app.post("/add", (req, res) => {
+app.post("/products", (req, res) => {
     handler.add(req.body["name"], req.body["price"]).then((result) => {
+        res.status(result.status).send(result.body);
+    });
+});
+
+app.delete("/products/:id", (req, res) => {
+    handler.delete(req.params["id"]).then((result) => {
         res.status(result.status).send(result.body);
     });
 });

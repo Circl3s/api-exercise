@@ -173,4 +173,40 @@ export default class Handler {
             };
         }
     }
+
+    public async delete(id : string) : Promise<Result> {
+        try {
+            const numId = parseInt(id);
+            if (numId !== numId) { // NaN check
+                return {
+                    status: 400,
+                    body: {
+                        success: false,
+                        error: `ID must be a number. (Provided: ${id})`,
+                        data: {}
+                    }
+                };
+            }
+
+            const data = await this.db.query(`DELETE FROM products WHERE Id = ${numId}`);
+
+            return {
+                status: 200,
+                body: {
+                    success: true,
+                    error: ``,
+                    data: data
+                }
+            };
+        } catch (err) {
+            return {
+                status: 500,
+                body: {
+                    success: false,
+                    error: err.message,
+                    data: {}
+                }
+            };
+        }
+    }
 }
