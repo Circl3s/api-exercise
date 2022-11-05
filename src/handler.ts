@@ -127,4 +127,50 @@ export default class Handler {
             };
         }
     }
+
+    public async add(name : string, price : string) : Promise<Result> {
+        try {
+            const numPrice = parseFloat(price);
+            if (name.length > 100) {
+                return {
+                    status: 400,
+                    body: {
+                        success: false,
+                        error: `Name must be shorter than 100 characters. (Provided: ${name.length})`,
+                        data: {}
+                    }
+                };
+            }
+            if (numPrice !== numPrice) { // NaN check
+                return {
+                    status: 400,
+                    body: {
+                        success: false,
+                        error: `Price must be a number. (Provided: ${price})`,
+                        data: {}
+                    }
+                };
+            }
+
+            const data = await this.db.query(`INSERT INTO products VALUES (NULL, "${name}", ${price}, CURRENT_TIMESTAMP());`);
+
+            return {
+                status: 200,
+                body: {
+                    success: true,
+                    error: ``,
+                    data: data
+                }
+            };
+        } catch (err) {
+            return {
+                status: 500,
+                body: {
+                    success: false,
+                    error: err.message,
+                    data: {}
+                }
+            };
+        }
+    }
 }

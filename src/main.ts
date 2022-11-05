@@ -37,6 +37,12 @@ app.put("/update", (req, res) => {
     });
 });
 
+app.post("/add", (req, res) => {
+    handler.add(req.body["name"], req.body["price"]).then((result) => {
+        res.status(result.status).send(result.body);
+    });
+});
+
 const server = app.listen(port, () => {
     console.log(`API running on port ${port}.`);
 });
