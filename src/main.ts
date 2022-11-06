@@ -7,7 +7,7 @@ import Database from "./db";
 dotenv.config();
 
 const app = express();
-const port = 8080;
+const port = process.env.PORT;
 
 const db = new Database(
     process.env.DB_HOST,

@@ -59,7 +59,7 @@ export default class Handler {
                 return this.notFound();
             }
 
-            return Result.ok(rows);
+            return Result.ok(rows[0]);
         } catch (err) {
             return Result.error(err.message);
         }
