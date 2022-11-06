@@ -58,3 +58,6 @@ npm start
 - **DELETE /products/`<id>`**
     - No body.
     - Deletes the product with given id, returns query result.
+
+## Testing
+There is a [Postman collection](https://raw.githubusercontent.com/Circl3s/api-test/master/postman_collection.json) that you can import to run automatic tests.
