@@ -23,6 +23,8 @@ DB_HOST="localhost"
 DB_USER="root"
 DB_PASS=""
 DB_NAME="api-test"
+
+PORT=8080
 ```
 5. Start
 ```
