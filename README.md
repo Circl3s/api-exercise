@@ -9,7 +9,7 @@ git clone https://github.com/Circl3s/api-test
 npm ci
 ```
 3. Configure and run MariaDB database
-    1. Create a table with fields:
+    1. Create table `products` with fields:
         - Id: `INT NOT NULL AUTO_INCREASE` (Primary Key)
         - Name: `VARCHAR(100)`
         - Price: `DECIMAL(10, 2)`
