@@ -12,10 +12,10 @@ npm ci
     1. Create a table with fields:
         - Id: `INT NOT NULL AUTO_INCREASE` (Primary Key)
         - Name: `VARCHAR(100)`
-        - Price: `FLOAT`
+        - Price: `DECIMAL(10, 2)`
         - UpdateDate: `DATETIME DEFAULT CURRENT_TIMESTAMP`
 ```SQL
-CREATE TABLE `products` (`Id` INT NOT NULL AUTO_INCREMENT , `Name` VARCHAR(100), `Price` FLOAT, `UpdateDate` DATETIME DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`Id`));
+CREATE TABLE `products` (`Id` INT NOT NULL AUTO_INCREMENT , `Name` VARCHAR(100), `Price` DECIMAL(10, 2), `UpdateDate` DATETIME DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`Id`));
 ```
 4. Create a `.env` file with database info
 ```.env
