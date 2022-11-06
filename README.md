@@ -42,10 +42,10 @@ npm start
       "price": <price>
     }
     ```
-    - Creates a new product, returns query result.
+    - Creates a new product, returns id of the new product.
 - **GET /products/`<id>`**
     - No body.
-    - Returns single product with given id.
+    - Returns a single product with given id.
 - **PUT /products/`<id>`**
     - Body:
     ```json
@@ -54,10 +54,10 @@ npm start
       "price": <price>
     }
     ```
-    - Modifies the product with given id, returns query result.
+    - Modifies the product with given id, returns nothing.
 - **DELETE /products/`<id>`**
     - No body.
-    - Deletes the product with given id, returns query result.
+    - Deletes the product with given id, returns nothing.
 
 ## Testing
 There is a [Postman collection](https://raw.githubusercontent.com/Circl3s/api-test/master/postman_collection.json) that you can import to run automatic tests.
