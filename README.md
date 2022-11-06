@@ -2,7 +2,7 @@
 ## Setup
 1. Clone this repository
 ```
-git clone https://github.com/Circl3s/api-test
+git clone https://github.com/Circl3s/api-exercise
 ```
 2. Install dependencies
 ```
